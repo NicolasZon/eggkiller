@@ -39,7 +39,6 @@ PFont font;
 
 void setup() {
   size(640, 640, P3D);
-  //  bread = loadShape("bread/Bread.obj");
   initCubeMap();
 
   font = createFont("Arial Bold", 48);
@@ -74,27 +73,16 @@ void drawScene() {
   pushMatrix();
   translate(panx, pany, 0);
 
-  //shape(bread);
-
   fill(0, 0, 255);
   stroke(255, 255, 255);
   box(40);
 
   popMatrix();
-
-  /*
-  for (int i=0; i<3; i++){
-   box(100,100,350);
-   translate(x++,y++);
-   }
-   */
-  
-  //killer.moveCaja(); // = new Egg();
-  //killer2.moveCaja();
   
   for (Egg box: killers) {
     box.moveCaja();
     perdiendo = box.killed();
+      if(perdiendo) reset();
   }
 
   pushMatrix();
@@ -157,20 +145,12 @@ void movimientoGato() {
     puntos();
     break;
   }
-
-  //System.out.println("pospanx--------------------\t"+pospanx);
-  //System.out.println("pospany--------------------\t"+pospany);
-  //System.out.println("posxgato-------------------\t"+posxgato);
-  //System.out.println("moveygato------------------\t"+posygato);
 }
 
 int diferenciax = 40, diferenciay = 40;
 
 void puntos() {
-  if(perdiendo){
-    reset();
-  }
-  else if (posygato >= pany-diferenciay &&  posygato <= pany+diferenciay && posxgato >= panx-diferenciax &&  posxgato <= panx+diferenciax) {
+  if (posygato >= pany-diferenciay &&  posygato <= pany+diferenciay && posxgato >= panx-diferenciax &&  posxgato <= panx+diferenciax) {
     puntos++;
     panx=int(random(-500, 1100));
     pany=int(random(-500, 1100));
