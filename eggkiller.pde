@@ -21,8 +21,7 @@ int envMapSize = 1024;
 int catx, caty, catz;
 int catmovex, catmovey, catmovez;
 
-int boxmove, boxi, boxdir;
-int boxX, boxY;
+
 
 int posxgato;
 int posygato;
@@ -31,6 +30,8 @@ int pospanx;
 int pospany;
 int panx=int(random(-500, 1100));
 int pany=int(random(-500, 1100));
+
+Egg killer, killer2;
 
 PFont font;
 
@@ -88,8 +89,10 @@ void drawScene() {
    translate(x++,y++);
    }
    */
-
-  moveCaja();
+  
+  killer = new Egg();
+  //killer2 = new Egg();
+  //moveCaja();
 
   pushMatrix();
   lights();
@@ -176,10 +179,15 @@ void movimientoGato() {
 int diferenciax = 40, diferenciay = 40;
 
 void puntos() {
+  /*
   if (posygato >= boxY-60 &&  posygato <= boxY+60 && posxgato >= boxX-60 &&  posxgato <= boxX+60) {
     reset();
     System.out.println("perdio");
     
+  }*/
+  if(killer.killed()){
+    reset();
+    System.out.println("perdio");
   }
   else if (posygato >= pany-diferenciay &&  posygato <= pany+diferenciay && posxgato >= panx-diferenciax &&  posxgato <= panx+diferenciax) {
     puntos++;
@@ -192,48 +200,7 @@ void puntos() {
   }
 }
 
-void moveCaja() {
-  pushMatrix();
 
-  if (boxmove<0) {
-    boxmove = int(random(100, 200));
-    boxdir = int(random(1, 5));
-  } else {
-    boxmove--;
-
-    if (boxdir==1) boxX += 1;
-    if (boxdir==2) boxX -= 1;
-    if (boxdir==3) boxY += 1;
-    if (boxdir==4) boxY -= 1;
-
-    //translate(boxX, boxY, 0);
-    //delay(145);
-
-    if (boxX > 1100) boxX = -500;
-    if (boxX < -500) boxX = 1100;
-    if (boxY > 1100) boxY = -500;
-    if (boxY < -500) boxY = 1100;
-  }
-
-  //System.out.println(boxX +"\t" + boxY  + "\t-\t" + boxi + " " + boxmove + " " + rotZ);
-  // clear out all the transformations
-  popMatrix();
-
-  // draw another box at the same (x, y, z) coordinate as the other
-  pushMatrix();
-  translate(boxX, boxY, 0);
-  fill(1, 0.6, 0.2);
-  stroke(1, 1, 1);
-  //box(25);
-  for (int iii=0; iii<70; iii++) {
-    ellipse(0, 0, 100-iii, 100-iii);
-    translate(0, 0, 1);
-  }
-
-  //ellipse(56, 46, 55, 55);
-
-  popMatrix();
-}
 
 void reset(){
   catx=100;
@@ -242,10 +209,7 @@ void reset(){
   catmovex=0;
   catmovey=0;
   catmovez=0;
-  boxmove=-1;
-  boxi=1;
-  boxX=int(random(-500, 1100));
-  boxY=int(random(-500, 1100));
+  
   posxgato=0;
   posygato=0;
   puntos=0;
