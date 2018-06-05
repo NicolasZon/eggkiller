@@ -36,12 +36,9 @@ class Egg{
       if (boxY > 1100) boxY = -500;
       if (boxY < -500) boxY = 1100;
     }
-  
-    //System.out.println(boxX +"\t" + boxY  + "\t-\t" + boxi + " " + boxmove + " " + boxdir);
-    // clear out all the transformations
+    
     popMatrix();
-  
-    // draw another box at the same (x, y, z) coordinate as the other
+    
     pushMatrix();
     translate(boxX, boxY, 0);
     fill(1, 0.6, 0.2);
@@ -60,8 +57,6 @@ class Egg{
   boolean killed(){
     if (posygato >= boxY-60 &&  posygato <= boxY+60 && posxgato >= boxX-60 &&  posxgato <= boxX+60) {
       return true;
-      //reset();
-      //System.out.println("perdio");
     }
     return false;
   }

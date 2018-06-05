@@ -44,12 +44,6 @@ void setup() {
 
   font = createFont("Arial Bold", 48);
   reset();
-  //killer = new Egg();
-  //killer2 = new Egg();
-  killers = new ArrayList();
-  killers.add(new Egg());
-  //colorMode(RGB, 1);
-  //fill(0.4);
 }
 
 void draw() {
@@ -98,31 +92,17 @@ void drawScene() {
   //killer.moveCaja(); // = new Egg();
   //killer2.moveCaja();
   
-  for (Egg killer: killers) {
-    killer.moveCaja();
-    perdiendo = killer.killed();
+  for (Egg box: killers) {
+    box.moveCaja();
+    perdiendo = box.killed();
   }
-  
-  //moveCaja();
 
   pushMatrix();
   lights();
   noStroke();
-  //translate(mouseX, mouseY);
-  //System.out.println(mouseX + " " + mouseY);
-  //rotateX(frameCount * 0.01);
-  //rotateY(frameCount * 0.01);  
-  //sphere(100);
-
-
-  //System.out.println("panx"+panx);
-  //System.out.println("pany"+pany);
 
   movimientoGato();
 
-
-
-  // colorMode(RGB, 1);
   colorMode(RGB, 1);
   fill(0.4);
 
@@ -130,18 +110,15 @@ void drawScene() {
   directionalLight(0.8, 0.8, 0.8, 0, 0, -1);
   float s = 1 - (sqrt((pow(panx-posxgato, 2) + pow(pany-posygato, 2))) / 400 );  //mouseX / float(width); sqrt(width*height)
   specular(s, s, s);
-  //System.out.println("sssssssssssv "+s);
-
+  
   sphere(30);
   popMatrix();
-  //translate(-150,-150);
 }
 
 void movimientoGato() {
   switch (keyCode) {
   case RIGHT:
     //System.out.println("entrando a derecha");
-
     posxgato+=1;//.3*frameCount;
     if(posxgato==1100){
       keyCode = LEFT;
@@ -190,23 +167,6 @@ void movimientoGato() {
 int diferenciax = 40, diferenciay = 40;
 
 void puntos() {
-  /*
-  if (posygato >= boxY-60 &&  posygato <= boxY+60 && posxgato >= boxX-60 &&  posxgato <= boxX+60) {
-    reset();
-    System.out.println("perdio");
-    
-  }*/
-  
-  /*
-  if(killer.killed()){
-    reset();
-    System.out.println("perdio");
-  }
-  else if(killer2.killed()){
-    reset();
-    //System.out.println("perdio");
-  }
-  */
   if(perdiendo){
     reset();
   }
@@ -215,19 +175,9 @@ void puntos() {
     panx=int(random(-500, 1100));
     pany=int(random(-500, 1100));
     killers.add(new Egg());
-    /*
-    for (int i = 0; i < 10; i++) {
-      panx=int(random(-500, 1100));
-      pany=int(random(-500, 1100));
-      //println(panx + " " + pany);
-    }
-    */
-    
     //System.out.println("puntos"+puntos);
   }
 }
-
-
 
 void reset(){
   catx=100;
@@ -247,4 +197,7 @@ void reset(){
   panx=int(random(-500, 1100));
   pany=int(random(-500, 1100));
   keyCode = RIGHT;
+  
+  killers = new ArrayList();
+  killers.add(new Egg());
 }
