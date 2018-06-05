@@ -5,6 +5,8 @@ import frames.primitives.*;
 import frames.core.*;
 import frames.processing.*;
 
+ArrayList<Egg> killers;
+
 Scene scene;
 
 boolean animate = true;
@@ -20,7 +22,7 @@ int envMapSize = 1024;
 
 int catx, caty, catz;
 int catmovex, catmovey, catmovez;
-
+boolean perdiendo;
 
 
 int posxgato;
@@ -42,8 +44,10 @@ void setup() {
 
   font = createFont("Arial Bold", 48);
   reset();
-  killer = new Egg();
-  killer2 = new Egg();
+  //killer = new Egg();
+  //killer2 = new Egg();
+  killers = new ArrayList();
+  killers.add(new Egg());
   //colorMode(RGB, 1);
   //fill(0.4);
 }
@@ -91,8 +95,14 @@ void drawScene() {
    }
    */
   
-  killer.moveCaja(); // = new Egg();
-  killer2.moveCaja();
+  //killer.moveCaja(); // = new Egg();
+  //killer2.moveCaja();
+  
+  for (Egg killer: killers) {
+    killer.moveCaja();
+    perdiendo = killer.killed();
+  }
+  
   //moveCaja();
 
   pushMatrix();
@@ -186,6 +196,8 @@ void puntos() {
     System.out.println("perdio");
     
   }*/
+  
+  /*
   if(killer.killed()){
     reset();
     System.out.println("perdio");
@@ -194,13 +206,23 @@ void puntos() {
     reset();
     //System.out.println("perdio");
   }
+  */
+  if(perdiendo){
+    reset();
+  }
   else if (posygato >= pany-diferenciay &&  posygato <= pany+diferenciay && posxgato >= panx-diferenciax &&  posxgato <= panx+diferenciax) {
     puntos++;
+    panx=int(random(-500, 1100));
+    pany=int(random(-500, 1100));
+    killers.add(new Egg());
+    /*
     for (int i = 0; i < 10; i++) {
       panx=int(random(-500, 1100));
       pany=int(random(-500, 1100));
-      println(panx + " " + pany);
+      //println(panx + " " + pany);
     }
+    */
+    
     //System.out.println("puntos"+puntos);
   }
 }
@@ -214,6 +236,8 @@ void reset(){
   catmovex=0;
   catmovey=0;
   catmovez=0;
+  
+  perdiendo = true;
   
   posxgato=0;
   posygato=0;
