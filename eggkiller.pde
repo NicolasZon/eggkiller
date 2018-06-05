@@ -42,7 +42,8 @@ void setup() {
 
   font = createFont("Arial Bold", 48);
   reset();
-
+  killer = new Egg();
+  killer2 = new Egg();
   //colorMode(RGB, 1);
   //fill(0.4);
 }
@@ -90,8 +91,8 @@ void drawScene() {
    }
    */
   
-  killer = new Egg();
-  //killer2 = new Egg();
+  killer.moveCaja(); // = new Egg();
+  killer2.moveCaja();
   //moveCaja();
 
   pushMatrix();
@@ -188,6 +189,10 @@ void puntos() {
   if(killer.killed()){
     reset();
     System.out.println("perdio");
+  }
+  else if(killer2.killed()){
+    reset();
+    //System.out.println("perdio");
   }
   else if (posygato >= pany-diferenciay &&  posygato <= pany+diferenciay && posxgato >= panx-diferenciax &&  posxgato <= panx+diferenciax) {
     puntos++;

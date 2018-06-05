@@ -1,14 +1,18 @@
 class Egg{
   
-  int boxmove = -1;
-  int boxi = -1;
+  int boxmove;  // = -1;
+  int boxi;     // = -1;
   int boxdir;
-  int boxX = int(random(-500, 1100));
-  int boxY = int(random(-500, 1100));
+  int boxX;     // = int(random(-500, 1100));
+  int boxY;     // = int(random(-500, 1100));
   
   Egg(){
-    moveCaja();
+    boxmove = -1;
+    boxi = -1;
+    boxX = int(random(-500, 1100));
+    boxY = int(random(-500, 1100));
   }
+  
   
   void moveCaja() {
     pushMatrix();
@@ -33,7 +37,7 @@ class Egg{
       if (boxY < -500) boxY = 1100;
     }
   
-    //System.out.println(boxX +"\t" + boxY  + "\t-\t" + boxi + " " + boxmove + " " + rotZ);
+    //System.out.println(boxX +"\t" + boxY  + "\t-\t" + boxi + " " + boxmove + " " + boxdir);
     // clear out all the transformations
     popMatrix();
   
@@ -55,7 +59,7 @@ class Egg{
   
   boolean killed(){
     if (posygato >= boxY-60 &&  posygato <= boxY+60 && posxgato >= boxX-60 &&  posxgato <= boxX+60) {
-      return false;
+      return true;
       //reset();
       //System.out.println("perdio");
     }
